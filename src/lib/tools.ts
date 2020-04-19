@@ -21,3 +21,13 @@ export function installTool(toolname) {
     });
   }
 }
+
+export class StringInterpolator {
+    constructor(variables_to_substitute: Map<string, string>) {
+        this.variables_to_substitute = variables_to_substitute;
+    }
+    interpolate(str: string): string {
+        return str.replace(/\$\{(\w+)\}/g, (_, name) => this.variables_to_substitute.get(name) || '?');
+    }
+    private variables_to_substitute: Map<string, string>;
+}
